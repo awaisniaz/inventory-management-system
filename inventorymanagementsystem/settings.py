@@ -10,7 +10,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import os
 from pathlib import Path
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,10 +24,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure--_2$j60kq+eq!u-xln=vmdtoxtuv_ctpxe57yaicoj9h1(1!(y'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG') == 'True'
 
 ALLOWED_HOSTS = []
 
@@ -76,11 +80,11 @@ WSGI_APPLICATION = 'inventorymanagementsystem.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'inventory-management-system',        # The name of the database you created
-        'USER': 'postgres',  # Your database username (often 'postgres')
-        'PASSWORD': 'Awaisniaz@1234',   # Your database password
-        'HOST': 'localhost',           # Set to '127.0.0.1' or 'localhost' for local dev
-        'PORT': '5432',                # Default PostgreSQL port
+        'NAME': os.getenv('DB_NAME'),      # The name of the database you created
+        'USER': os.getenv('DB_USER'),  # Your database username (often 'postgres')
+        'PASSWORD': os.getenv('DB_PASSWORD'),   # Your database password
+        'HOST': os.getenv('DB_HOST'),           # Set to '127.0.0.1' or 'localhost' for local dev
+        'PORT': os.getenv('DB_PORT'),                # Default PostgreSQL port
     }
 }
 
